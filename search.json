@@ -1,0 +1,44 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "reinautils",
+    "section": "",
+    "text": "source\n\n\n\n Parameters (**kargs)\n\nA splecial class whos atributes can be referenced as attributs or as dictionaty keys\n\nsource\n\n\n\n\n device_by_name (name:str)\n\nReturn reference to cuda device by using Part of it’s name\nArgs: name: part of the cuda device name (shuuld be distinct)\nReturn: Reference to cuda device\nUpdated: Yuval 12/10/19\n\nsource\n\n\n\n\n DatasetCat (*datasets)\n\nConcatenate datasets for Pytorch dataloader\nThe normal pytorch implementation does it only for raws. this is a “column” implementation\nArges: datasets: list of datasets, of the same length\nUpdated: Yuval 12/10/2019"
+  },
+  {
+    "objectID": "index.html#install",
+    "href": "index.html#install",
+    "title": "reinautils",
+    "section": "Install",
+    "text": "Install\npip install reinautils"
+  },
+  {
+    "objectID": "index.html#how-to-use",
+    "href": "index.html#how-to-use",
+    "title": "reinautils",
+    "section": "How to use",
+    "text": "How to use\n\nParameters\nYou can create a Parameters class from dict\n\nparams=Parameters(first=1,second='A')\nprint(params.first)\n\n1\n\n\nYou can also creat a Parameters class and populate it from a json file\n\nparams2=Parameters().from_json('config_demo.json')\nprint(params2)\n\nParameters:\n   path : Parameters:\n      data : /workspace/hd/\n      tmp : /workspace/hd/tmp/\n      features : /workspace/nvme/features/\n      train : /workspace/nvme/train/\n      models : /workspace/hd/models/\n      output : /workspace/hd/outputs/\n      test : /workspace/nvme/test/\n   platform : myserver"
+  },
+  {
+    "objectID": "parameters.html",
+    "href": "parameters.html",
+    "title": "Parameters",
+    "section": "",
+    "text": "source"
+  },
+  {
+    "objectID": "parameters.html#use-cases",
+    "href": "parameters.html#use-cases",
+    "title": "Parameters",
+    "section": "Use cases",
+    "text": "Use cases\nWe can instantiate a Parameter class and immediately add attributes\n\nparams=Parameters(first=1,second='A')\nassert (params.first==1) & (params.second=='A')\n\nAttributes can be added later\n\nparams.added = 'I am new'\nassert params['added'] == 'I am new'\n\nAnd they can also be added recursively\n\nparams.add_attr(file_name='test.ini', paths = {'path1':'hello_world', 'path2':'http2'})\nassert params.file_name == 'test.ini'\nassert params.paths.path2 == 'http2'\n\nYou can see we can referance the attribute directly as in dict\n\nassert params.paths.path1 == params['paths']['path1']\nparams['stam'] = 'no'\nassert params.stam == 'no'\nassert params['paths'].path2 == 'http2'\n\nAnd can be deleted\n\ndel params['stam']\nassert not hasattr(params,'stam')\n\nThe Parameters class can be printed and can be converted recursively to dict\n\nprint(params)\n\nParameters:\n   first : 1\n   second : A\n   added : I am new\n   file_name : test.ini\n   paths : Parameters:\n      path1 : hello_world\n      path2 : http2\n\n\n\nprint(params.to_dict())\n\n{'first': 1, 'second': 'A', 'added': 'I am new', 'file_name': 'test.ini', 'paths': {'path1': 'hello_world', 'path2': 'http2'}}\n\n\nThe parameters can also be populated using a json file\n\nparams2=Parameters().from_json('config_demo.json')\n\n\nprint(params2)\n\nParameters:\n   path : Parameters:\n      data : /workspace/hd/\n      tmp : /workspace/hd/tmp/\n      features : /workspace/nvme/features/\n      train : /workspace/nvme/train/\n      models : /workspace/hd/models/\n      output : /workspace/hd/outputs/\n      test : /workspace/nvme/test/\n   platform : myserver\n\n\n\nassert params2.platform == 'myserver'"
+  },
+  {
+    "objectID": "torchutils.html",
+    "href": "torchutils.html",
+    "title": "TorchUtils",
+    "section": "",
+    "text": "source\n\ndevice_by_name\n\n device_by_name (name:str)\n\nReturn reference to cuda device by using Part of it’s name\nArgs: name: part of the cuda device name (shuuld be distinct)\nReturn: Reference to cuda device\nUpdated: Yuval 12/10/19\n\nHow to use\n\ndevice_by_name(\"Tesla\")\n\ndevice(type='cuda', index=0)\n\n\nIf the device doesn’t exist we should get an error\n\nerror = False\ntry:\n    device_by_name(\"fff\")\nexcept AssertionError:\n    error = True\nassert error\n\n\nsource\n\n\n\nDatasetCat\n\n DatasetCat (*datasets)\n\nConcatenate datasets for Pytorch dataloader\nThe normal pytorch implementation does it only for raws. this is a “column” implementation\nArges: datasets: list of datasets, of the same length\nUpdated: Yuval 12/10/2019\n\n\nHow to use\nThis is one dataset\n\ndataset1=torch.utils.data.TensorDataset(torch.ones(5,1),torch.randn(5,1))\nprint(len(dataset1))\nprint (dataset1.__getitem__(0))\n\n5\n(tensor([1.]), tensor([-1.2270]))\n\n\nThis is the 2nd\n\ndataset2=torch.utils.data.TensorDataset(torch.zeros(5,1),torch.randn(5,1))\nprint(len(dataset2))\nprint (dataset2.__getitem__(0))\n\n5\n(tensor([0.]), tensor([1.0632]))\n\n\nAnd we will concat them row wise\n\ndataset3 = DatasetCat(dataset1,dataset2)\nprint(len(dataset3))\nprint (dataset3.__getitem__(0))\nassert dataset3.__getitem__(3) == (*dataset1.__getitem__(3),*dataset2.__getitem__(3))\nassert len(dataset3) == len(dataset1)\n\n5\n(tensor([1.]), tensor([-1.2270]), tensor([0.]), tensor([1.0632]))"
+  }
+]
