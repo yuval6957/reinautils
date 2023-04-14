@@ -16,5 +16,7 @@ website:
     search: true
   sidebar:
     style: floating
+    contents:
+      - auto: "/*.ipynb"
 
 metadata-files: [nbdev.yml, sidebar.yml]
