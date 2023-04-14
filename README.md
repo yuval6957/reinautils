@@ -17,6 +17,43 @@ target="_blank" style="float:right; font-size:smaller">source</a>
 A splecial class whos atributes can be referenced as attributs or as
 dictionaty keys
 
+------------------------------------------------------------------------
+
+<a
+href="https://github.com/yuval6957/reinautils/blob/main/reinautils/torchutils.py#LNone"
+target="_blank" style="float:right; font-size:smaller">source</a>
+
+### device_by_name
+
+>      device_by_name (name:str)
+
+Return reference to cuda device by using Part of it’s name
+
+Args: name: part of the cuda device name (shuuld be distinct)
+
+Return: Reference to cuda device
+
+Updated: Yuval 12/10/19
+
+------------------------------------------------------------------------
+
+<a
+href="https://github.com/yuval6957/reinautils/blob/main/reinautils/torchutils.py#LNone"
+target="_blank" style="float:right; font-size:smaller">source</a>
+
+### DatasetCat
+
+>      DatasetCat (*datasets)
+
+Concatenate datasets for Pytorch dataloader
+
+The normal pytorch implementation does it only for raws. this is a
+“column” implementation
+
+Arges: datasets: list of datasets, of the same length
+
+Updated: Yuval 12/10/2019
+
 ## Install
 
 ``` sh
